@@ -5,12 +5,16 @@
  */
 package com.mycompany.mavenproject1;
 
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
 /**
  *
  * @author stepa
  */
+@SpringBootApplication
 public class NewClass {
     public static void main(String[] args) {
-        System.out.println("hello nb11");
+        SpringApplication.run(NewClass.class, args);
     }
 }
