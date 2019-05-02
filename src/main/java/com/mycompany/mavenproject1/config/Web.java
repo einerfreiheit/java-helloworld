@@ -13,6 +13,6 @@ import org.springframework.context.annotation.Configuration;
  * @author stepa
  */
 @Configuration
-@ComponentScan(basePackageClasses = com.mycompany.mavenproject1.handlers.Package.class)
+@ComponentScan(basePackageClasses = com.mycompany.mavenproject1.handler.web.Package.class)
 public class Web {
 }
