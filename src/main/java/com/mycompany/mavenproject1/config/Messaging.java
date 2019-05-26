@@ -5,10 +5,8 @@
  */
 package com.mycompany.mavenproject1.config;
 
-import org.apache.activemq.artemis.api.core.RoutingType;
-import org.apache.activemq.artemis.api.core.SimpleString;
+import java.net.URISyntaxException;
 import org.apache.activemq.artemis.api.core.client.ActiveMQClient;
-import org.apache.activemq.artemis.api.core.client.ClientProducer;
 import org.apache.activemq.artemis.api.core.client.ClientSession;
 import org.apache.activemq.artemis.api.core.client.ClientSessionFactory;
 import org.apache.activemq.artemis.api.core.client.ServerLocator;
@@ -16,7 +14,13 @@ import org.apache.activemq.artemis.core.config.Configuration;
 import org.apache.activemq.artemis.core.config.impl.ConfigurationImpl;
 import org.apache.activemq.artemis.core.server.ActiveMQServer;
 import org.apache.activemq.artemis.core.server.impl.ActiveMQServerImpl;
-import org.springframework.beans.factory.annotation.Value;
+import org.fusesource.hawtbuf.Buffer;
+import org.fusesource.hawtbuf.UTF8Buffer;
+import org.fusesource.mqtt.client.BlockingConnection;
+import org.fusesource.mqtt.client.CallbackConnection;
+import org.fusesource.mqtt.client.FutureConnection;
+import org.fusesource.mqtt.client.Listener;
+import org.fusesource.mqtt.client.MQTT;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.DependsOn;
@@ -47,12 +51,21 @@ public class Messaging {
     
     @Bean
     @DependsOn("amq-server")
-    public ClientSession getClientProducer() throws Exception {
-        ServerLocator serverLocator = ActiveMQClient.createServerLocator("vm://0");
+    public ClientSession getCoreClientProducer() throws Exception {
+        ServerLocator serverLocator = ActiveMQClient.createServerLocator("vm://0?protocols=MQTT");
         
         ClientSessionFactory sessionFactory = serverLocator.createSessionFactory();
         ClientSession session = sessionFactory.createSession();
+        session.start();
         
         return session;
+    }
+
+    @Bean
+    @DependsOn("amq-server")
+    public MQTT getMQTTClient() throws URISyntaxException, Exception {
+        MQTT mqtt = new MQTT();
+        mqtt.setHost("tcp://127.0.0.1:61616");
+        return mqtt;
     }
 }
