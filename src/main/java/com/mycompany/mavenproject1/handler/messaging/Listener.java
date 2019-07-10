@@ -69,6 +69,7 @@ public class Listener {
 
             @Override
             public void onPublish(UTF8Buffer topic, Buffer body, Runnable ack) {
+                log.log(Level.INFO, "on publish");
                 log.log(Level.INFO, "{0} : {1}", new Object[]{topic.toString(), body.toString()});
                 ack.run();
             }

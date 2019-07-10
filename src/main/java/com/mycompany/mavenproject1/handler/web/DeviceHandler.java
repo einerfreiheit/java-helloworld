@@ -78,7 +78,7 @@ public class DeviceHandler {
         return devices.findAll();
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/add/")
+    @RequestMapping(method = RequestMethod.POST, path = "/add/")
     public Device add(@RequestParam String name) throws JsonProcessingException {
         Device d = new Device();
         d.setName(name);
@@ -86,8 +86,15 @@ public class DeviceHandler {
         connection.publish(devAddTopic, jsonEncoder.getObjectMapper().writeValueAsBytes(d), QoS.AT_LEAST_ONCE, false, new Callback<Void>() {
             @Override
             public void onSuccess(Void value) {
-                log.info("Msg sent");
-            }
+                String asString = "";
+                try {
+                    asString = jsonEncoder.getObjectMapper().writeValueAsString(d);
+                }
+                catch (JsonProcessingException e) {
+                    asString = "json processing faeiled";
+                }
+                log.info("Msg sent, davAddTopic: "  + devAddTopic  + ", as string: " + asString);
+        }
 
             @Override
             public void onFailure(Throwable value) {

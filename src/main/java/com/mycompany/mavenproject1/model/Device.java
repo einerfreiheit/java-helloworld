@@ -24,6 +24,11 @@ public class Device {
     
     @Column
     private String name;
+    @Column
+    private String testField = "default_value";
+
+    public String getTestField(){ return  testField;}
+    public void setTestField(String testField) {this.testField = testField;}
 
     public Long getId() {
         return id;
