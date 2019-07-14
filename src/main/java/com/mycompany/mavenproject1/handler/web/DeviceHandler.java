@@ -59,7 +59,6 @@ public class DeviceHandler {
             @Override
             public void onFailure(Throwable value) {
                 log.log(Level.SEVERE, "connection got failure" + value.getMessage());
-
                 //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
         });
@@ -80,43 +79,18 @@ public class DeviceHandler {
         connection.publish(devAddTopic, jsonEncoder.getObjectMapper().writeValueAsBytes(d), QoS.AT_LEAST_ONCE, false, new Callback<Void>() {
             @Override
             public void onSuccess(Void value) {
-                String asString = "";
                 try {
-                    asString = jsonEncoder.getObjectMapper().writeValueAsString(d);
+                    log.info("Msg sent, davAddTopic: " + devAddTopic + ", as string: " + jsonEncoder.getObjectMapper().writeValueAsString(d));
                 }
-                catch (JsonProcessingException e) {
-                    asString = "json processing faeiled";
+                catch (JsonProcessingException e){
+                    log.info("JsonProcessingException" + e.getMessage());
                 }
-                log.info("Msg sent, davAddTopic: "  + devAddTopic  + ", as string: " + asString);
         }
-
             @Override
             public void onFailure(Throwable value) {
                 log.log(Level.SEVERE, "publish got failure" + value.getMessage());
-                //throw new UnsupportedOperationException("Not supported yet: " + value.getMessage()); //To change body of generated methods, choose Tools | Templates.
             }
         });
-        connection.publish(devAddTopic, jsonEncoder.getObjectMapper().writeValueAsBytes(d), QoS.AT_LEAST_ONCE, false, new Callback<Void>() {
-            @Override
-            public void onSuccess(Void value) {
-                String asString = "";
-                try {
-                    asString = jsonEncoder.getObjectMapper().writeValueAsString(d);
-                }
-                catch (JsonProcessingException e) {
-                    asString = "json processing faeiled";
-                }
-                log.info("Msg sent, davAddTopic: "  + devAddTopic  + ", as string: " + asString);
-        }
-
-            @Override
-            public void onFailure(Throwable value) {
-                log.log(Level.SEVERE, "publish got failure" + value.getMessage());
-
-                //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            }
-        });
-
         return devices.save(d);
     }
 

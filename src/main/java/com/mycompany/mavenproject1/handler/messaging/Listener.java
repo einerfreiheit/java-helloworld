@@ -44,8 +44,6 @@ public class Listener {
             @Override
             public void onFailure(Throwable value) {
                 log.log(Level.SEVERE, "listener connect failure" + value.getMessage());
-               // System.out.println("listener connection got failure: " + value.getMessage());
-                // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
         });
         callbackConnection.listener(new org.fusesource.mqtt.client.Listener() {

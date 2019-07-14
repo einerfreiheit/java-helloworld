@@ -17,8 +17,8 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @ComponentScan(basePackageClasses = {com.mycompany.mavenproject1.config.Package.class})
-public class NewClass {
+public class Application {
     public static void main(String[] args) {
-        SpringApplication.run(NewClass.class, args);
+        SpringApplication.run(Application.class, args);
     }
 }
