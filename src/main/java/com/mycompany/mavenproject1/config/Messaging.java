@@ -14,12 +14,6 @@ import org.apache.activemq.artemis.core.config.Configuration;
 import org.apache.activemq.artemis.core.config.impl.ConfigurationImpl;
 import org.apache.activemq.artemis.core.server.ActiveMQServer;
 import org.apache.activemq.artemis.core.server.impl.ActiveMQServerImpl;
-import org.fusesource.hawtbuf.Buffer;
-import org.fusesource.hawtbuf.UTF8Buffer;
-import org.fusesource.mqtt.client.BlockingConnection;
-import org.fusesource.mqtt.client.CallbackConnection;
-import org.fusesource.mqtt.client.FutureConnection;
-import org.fusesource.mqtt.client.Listener;
 import org.fusesource.mqtt.client.MQTT;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -41,23 +35,22 @@ public class Messaging {
         configuration.setSecurityEnabled(false);
         return configuration;
     }
-    
     @Bean("amq-server")
     public ActiveMQServer getActiveMQ() throws Exception {
         ActiveMQServerImpl server = new ActiveMQServerImpl(getConfiguration());
         server.start();
         return server;
     }
-    
+
     @Bean
     @DependsOn("amq-server")
     public ClientSession getCoreClientProducer() throws Exception {
         ServerLocator serverLocator = ActiveMQClient.createServerLocator("vm://0?protocols=MQTT");
-        
+
         ClientSessionFactory sessionFactory = serverLocator.createSessionFactory();
         ClientSession session = sessionFactory.createSession();
         session.start();
-        
+
         return session;
     }
 

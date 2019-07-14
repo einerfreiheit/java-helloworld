@@ -8,6 +8,7 @@ package com.mycompany.mavenproject1.handler.web;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+
 /**
  *
  * @author stepa
@@ -15,9 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RestController
 public class HelloController {
 
+    private String message = "Greeting!";
+
     @RequestMapping("/")
     public String index() {
-        return "Greetings from Spring Boot!";
+        return message;
     }
 
 }

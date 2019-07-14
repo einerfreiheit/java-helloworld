@@ -5,25 +5,15 @@
  */
 package com.mycompany.mavenproject1.handler.messaging;
 
-import io.netty.buffer.ByteBufInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import org.apache.activemq.artemis.api.core.ActiveMQException;
-import org.apache.activemq.artemis.api.core.RoutingType;
-import org.apache.activemq.artemis.api.core.client.ClientConsumer;
-import org.apache.activemq.artemis.api.core.client.ClientSession;
-import org.apache.activemq.artemis.core.protocol.mqtt.MQTTSession;
 import org.fusesource.hawtbuf.Buffer;
 import org.fusesource.hawtbuf.UTF8Buffer;
-import org.fusesource.mqtt.client.BlockingConnection;
 import org.fusesource.mqtt.client.Callback;
 import org.fusesource.mqtt.client.CallbackConnection;
-import org.fusesource.mqtt.client.FutureConnection;
 import org.fusesource.mqtt.client.MQTT;
 import org.fusesource.mqtt.client.QoS;
 import org.fusesource.mqtt.client.Topic;
@@ -53,13 +43,15 @@ public class Listener {
 
             @Override
             public void onFailure(Throwable value) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                log.log(Level.SEVERE, "listener connect failure" + value.getMessage());
+               // System.out.println("listener connection got failure: " + value.getMessage());
+                // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
         });
         callbackConnection.listener(new org.fusesource.mqtt.client.Listener() {
             @Override
             public void onConnected() {
-//                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+               //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
 
             @Override
@@ -76,6 +68,7 @@ public class Listener {
 
             @Override
             public void onFailure(Throwable value) {
+
                 log.log(Level.SEVERE, value.getMessage());
             }
         });
@@ -90,5 +83,5 @@ public class Listener {
                 log.log(Level.SEVERE, value.getMessage());
             }
         });
-    }
+   }
 }

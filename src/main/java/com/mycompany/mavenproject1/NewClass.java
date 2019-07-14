@@ -13,6 +13,8 @@ import org.springframework.context.annotation.ComponentScan;
  *
  * @author stepa
  */
+
+
 @SpringBootApplication
 @ComponentScan(basePackageClasses = {com.mycompany.mavenproject1.config.Package.class})
 public class NewClass {

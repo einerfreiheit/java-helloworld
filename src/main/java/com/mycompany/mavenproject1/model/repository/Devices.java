@@ -13,4 +13,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @author stepa
  */
 public interface Devices extends JpaRepository<Device, Long> {
+
 }

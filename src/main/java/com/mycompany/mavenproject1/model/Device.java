@@ -10,25 +10,26 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
+
 
 /**
  *
  * @author stepa
  */
+@Table(name="devices")
 @Entity
 public class Device {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
     @Column
     private String name;
     @Column
-    private String testField = "default_value";
+    private String test_field = "default_value";
 
-    public String getTestField(){ return  testField;}
-    public void setTestField(String testField) {this.testField = testField;}
+    public String getTestField(){ return  test_field;}
+    public void setTestField(String testField) {this.test_field = test_field;}
 
     public Long getId() {
         return id;

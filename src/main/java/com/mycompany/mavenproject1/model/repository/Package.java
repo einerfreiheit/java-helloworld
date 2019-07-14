@@ -10,4 +10,5 @@ package com.mycompany.mavenproject1.model.repository;
  * @author stepa
  */
 public final class Package {
+
 }

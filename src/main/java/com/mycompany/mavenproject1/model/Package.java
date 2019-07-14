@@ -5,8 +5,6 @@
  */
 package com.mycompany.mavenproject1.model;
 
-import com.mycompany.mavenproject1.model.repository.*;
-
 /**
  *
  * @author stepa
